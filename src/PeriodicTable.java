@@ -3,6 +3,11 @@
  * @author Porter Youngman
  * Date Last Modified 9/21/22
  */
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -18,8 +23,8 @@ public class PeriodicTable extends Application{
 		launch(args);
 	}
 	
-	private Button[] btns = new Button[36];
-	private String[] symbols = {"H", "He", "Li", "Be", "B", "C", "N", "O", "F", "Ne", "Na","Mg","Al","Si","P","S","Cl","Ar","K","Ca","Sc","Ti","V","Cr","Mn","Fe","Co","Ni","Cu","Zn","Ga","Ge","As","Se","Br","Kr"};
+	private Button[] btns = new Button[54]; // so far only added buttons up to Xe
+	private String[] symbols = new String[118];
 	private BorderPane table = new BorderPane();
 	private VBox leftTable = new VBox();
 	private VBox centerTable = new VBox();
@@ -28,7 +33,17 @@ public class PeriodicTable extends Application{
 	
 	
 	private void createButtons() {
-		for (int x=0; x<symbols.length; x++) {
+		// Creates array from csv file
+		try {
+			Scanner input = new Scanner(new File("Elements.csv"));
+			for (int x=0; input.hasNext(); x++) {
+				symbols[x] = input.next();
+			}
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		
+		for (int x=0; x<btns.length; x++) {
 			btns[x] = new Button(symbols[x]);
 			btns[x].setPrefSize(50, 50);
 		}
@@ -42,6 +57,7 @@ public class PeriodicTable extends Application{
 			leftTable.getChildren().add(btns[index]);
 			index++;
 			rightTable.getChildren().add(btns[index]);
+			index++;
 			return index;
 		}
 		else if (rowNum >= 2 && rowNum <= 3) {
@@ -73,30 +89,12 @@ public class PeriodicTable extends Application{
 	}
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		BorderPane lmao = new BorderPane();
+		
 		createButtons();
-		//Label text = new Label("Test");
-		VBox pTable = new VBox();
-
-
-		
-		BorderPane row1 = new BorderPane();
-		BorderPane row2 = new BorderPane();
-		BorderPane row3 = new BorderPane();
-		//BorderPane row4 = new BorderPane();
-		
-		buildTable(0, 1);
-		buildTable(2, 2);
-		buildTable(10,3);
-		buildTable(18,4);
-		
-		
-
-//		pTable.getChildren().addAll(row1, row2);
-		
-		
-
-//		lmao.setCenter(pTable);
+		int temp = 0;
+		for (int x=1; x<=5; x++) {
+			temp = buildTable(temp,x);
+		}
 		
 		table.setLeft(leftTable);
 		table.setCenter(centerTable);
