@@ -1,7 +1,7 @@
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
+//import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -23,11 +23,11 @@ public class PeriodicTable extends Application{
 	public void start(Stage primaryStage) throws Exception {
 		BorderPane lmao = new BorderPane();
 		createTable();
-		Label text = new Label("Test");
+		//Label text = new Label("Test");
 		VBox pTable = new VBox();
 		HBox row1 = new HBox();
-		HBox row2 = new HBox();
-		HBox row3 = new HBox();
+		//HBox row2 = new HBox();
+		//HBox row3 = new HBox();
 		
 		row1.getChildren().add(btns[0]);
 		row1.getChildren().add(btns[1]);
