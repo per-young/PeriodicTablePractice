@@ -1,3 +1,8 @@
+/**
+ * The Purpose of this project is to create a periodic table for fun i guess
+ * @author Porter Youngman
+ * Date Last Modified 9/21/22
+ */
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -11,32 +16,71 @@ public class PeriodicTable extends Application{
 	public static void main(String[] args) {
 		launch(args);
 	}
-	private Button[] btns = new Button[4];
-	private String[] symbols = {"H", "He", "Li", "Be",};
-	private void createTable() {
+	
+	private Button[] btns = new Button[10];
+	private String[] symbols = {"H", "He", "Li", "Be", "B", "C", "N", "O", "F", "Ne"};
+	private BorderPane table = new BorderPane();
+	
+	private void createButtons() {
 		for (int x=0; x<symbols.length; x++) {
 			btns[x] = new Button(symbols[x]);
 			btns[x].setPrefSize(50, 50);
 		}
 	}
+	
+	private int buildTable(BorderPane row, int index, int rowNum) {
+		HBox tempLeft = new HBox();
+		HBox tempCenter = new HBox();
+		HBox tempRight = new HBox();
+		if (rowNum == 1) {
+			row.setLeft(btns[index]);
+			index++;
+			row.setRight(btns[index]);
+			return index;
+		}
+		else if (rowNum >= 2 && rowNum <= 3) {
+			for(int x=index; x<index+8; x++) {
+				if (x<(2+index))
+					tempLeft.getChildren().add(btns[x]);
+				else
+					tempRight.getChildren().add(btns[x]);
+			}
+			row.setLeft(tempLeft);
+			row.setRight(tempRight);
+			return index+8;
+		}
+		else if (rowNum >=4 && rowNum <= 5) {
+			for(int x=index; x<index+18; x++) {
+				if (x<2)
+					row.setLeft(btns[x]);
+				else if (x<12)
+					row.setCenter(btns[x]);
+				else
+					row.setRight(btns[x]);
+			}
+		}
+		return index;
+	}
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		BorderPane lmao = new BorderPane();
-		createTable();
+		createButtons();
 		//Label text = new Label("Test");
 		VBox pTable = new VBox();
-		HBox row1 = new HBox();
-		//HBox row2 = new HBox();
-		//HBox row3 = new HBox();
+		BorderPane row1 = new BorderPane();
+		BorderPane row2 = new BorderPane();
+		BorderPane row3 = new BorderPane();
+		//BorderPane row4 = new BorderPane();
 		
-		row1.getChildren().add(btns[0]);
-		row1.getChildren().add(btns[1]);
-		pTable.getChildren().add(row1);
+		buildTable(row1, 0, 1);
+		buildTable(row2, 2, 2);
 		
 		
-//		for(int x=2; x<10; x++) {
-//			pTable.getChildren().add(btns[x]);
-//		}
+
+		pTable.getChildren().addAll(row1, row2);
+		
+		
+
 //		Button h = new Button("H");
 //		Button li = new Button("Li");
 //		Button na = new Button("Na");
