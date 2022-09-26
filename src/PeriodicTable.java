@@ -4,7 +4,7 @@
  * Date Last Modified 9/21/22
  */
 import java.io.File;
-import java.io.FileReader;
+//import java.io.FileReader;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
@@ -12,7 +12,7 @@ import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
+//import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
